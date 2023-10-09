@@ -16,24 +16,34 @@
         v-model="form.email"
         placeholder="Email"
         @blur="validateEmail"
-        :class="form.emailValid ? 'valid' : 'invalid'"
-      />
+        :class="
+          form.emailValid ? 'custom-textbox valid' : 'custom-textbox invalid'
+        "
+        style="padding: 5px" />
 
       <input
         v-model="form.phoneNumber"
         placeholder="Phone Number"
         @blur="validatePhoneNumber"
-        :class="form.phoneNumberValid ? 'valid' : 'invalid'"
+        :class="
+          form.phoneNumberValid
+            ? 'custom-textbox valid'
+            : 'custom-textbox invalid'
+        "
         type="number"
-      />
+        style="padding: 5px" />
 
       <textarea
         v-model="form.address"
         placeholder="Delivery Address"
         @blur="validateAddress"
-        :class="form.addressValid ? 'valid' : 'invalid'"
-      ></textarea>
-      <p v-if="form.address">{{ 120 - form.address.length }} characters remaining</p>
+        :class="
+          form.addressValid ? 'custom-textbox valid' : 'custom-textbox invalid'
+        "
+        style="padding: 5px"></textarea>
+      <p v-if="form.address">
+        {{ 120 - form.address.length }} characters remaining
+      </p>
 
       <label>
         <input type="checkbox" v-model="form.sendAsDropshipper" />
@@ -41,84 +51,93 @@
       </label>
 
       <div v-if="form.sendAsDropshipper">
-        <input v-model="form.dropshipperName" placeholder="Dropshipper name" required />
+        <input
+          v-model="form.dropshipperName"
+          placeholder="Dropshipper name"
+          required />
 
         <input
           v-model="form.dropshipperPhoneNumber"
           placeholder="Dropshipper phone number"
           @blur="validateDropshipperPhoneNumber"
-          :class="form.dropshipperPhoneNumberValid ? 'valid' : 'invalid'"
-        />
+          :class="form.dropshipperPhoneNumberValid ? 'valid' : 'invalid'" />
       </div>
     </div>
 
     <!-- Summary section -->
     <div class="summary-container">
-      <Summary :sendAsDropshipper="form.sendAsDropshipper" :totalAmount="totalAmount" />
+      <Summary
+        :sendAsDropshipper="form.sendAsDropshipper"
+        :totalAmount="totalAmount" />
       <!-- <p>10 items purchased</p>
       <p>Cost of goods: 500,000</p>
       <p v-if="form.sendAsDropshipper">Dropshipping Fee: 5,900</p>
       <p>Total: {{ totalAmount }}</p> -->
 
-      <button><RouterLink :to="'/payment'">Continue to Payment</RouterLink></button>
+      <button>
+        <RouterLink :to="'/payment'">Continue to Payment</RouterLink>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 // import { ref, computed } from 'vue'
-import Summary from './Summary.vue'
+import Summary from "./Summary.vue";
 
 export default {
   components: {
-    Summary
+    Summary,
   },
   data() {
     return {
       form: {
-        email: '',
-        phoneNumber: '',
-        address: '',
+        email: "",
+        phoneNumber: "",
+        address: "",
         sendAsDropshipper: false,
-        dropshipperName: '',
-        dropshipperPhoneNumber: '',
+        dropshipperName: "",
+        dropshipperPhoneNumber: "",
         emailValid: false,
         phoneNumberValid: false,
         addressValid: false,
-        dropshipperPhoneNumberValid: false
-      }
-    }
+        dropshipperPhoneNumberValid: false,
+      },
+    };
   },
   computed: {
     totalAmount() {
-      return this.form.sendAsDropshipper ? 505900 : 500000
-    }
+      return this.form.sendAsDropshipper ? 505900 : 500000;
+    },
   },
   methods: {
     goBack() {
       // Implement the logic to go back to cart
     },
     validateEmail() {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      this.form.emailValid = emailPattern.test(this.form.email)
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      this.form.emailValid = emailPattern.test(this.form.email);
     },
 
     validatePhoneNumber() {
-      const phoneNumberPattern = /^[0-9-\+\(\)]{6,20}$/
-      this.form.phoneNumberValid = phoneNumberPattern.test(this.form.phoneNumber)
+      const phoneNumberPattern = /^[0-9-\+\(\)]{6,20}$/;
+      this.form.phoneNumberValid = phoneNumberPattern.test(
+        this.form.phoneNumber
+      );
     },
 
     validateAddress() {
-      this.form.addressValid = this.form.address.length > 0 && this.form.address.length <= 120
+      this.form.addressValid =
+        this.form.address.length > 0 && this.form.address.length <= 120;
     },
     validateDropshipperPhoneNumber() {
-      const phoneNumberPattern = /^[0-9-\+\(\)]{6,20}$/
+      const phoneNumberPattern = /^[0-9-\+\(\)]{6,20}$/;
       this.form.dropshipperPhoneNumberValid = phoneNumberPattern.test(
         this.form.dropshipperPhoneNumber
-      )
-    }
-  }
-}
+      );
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -199,5 +218,22 @@ button {
 
 button:hover {
   background-color: #e88600;
+}
+
+.custom-textbox {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Apply the 'valid' and 'invalid' styles */
+.custom-textbox.valid {
+  border-color: green;
+}
+
+.custom-textbox.invalid {
+  border-color: orange;
 }
 </style>

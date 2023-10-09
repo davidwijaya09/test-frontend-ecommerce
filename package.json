@@ -32,5 +32,18 @@
     "stylus": "^0.60.0",
     "vite": "^4.4.9",
     "vitest": "^0.34.4"
-  }
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidwijaya09/test-frontend-ecommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidwijaya09/test-frontend-ecommerce/issues"
+  },
+  "homepage": "https://github.com/davidwijaya09/test-frontend-ecommerce#readme"
 }

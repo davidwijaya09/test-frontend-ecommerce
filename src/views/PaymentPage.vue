@@ -1,9 +1,9 @@
 <template>
   <div class="checkout-container">
-    <!-- Navigation steps -->
-    <div class="nav-steps">
+    <!-- Progress steps -->
+    <div class="progress-steps">
       <span class="active">1. Delivery</span>
-      <span class="active">2. Payment</span>
+      <span>2. Payment</span>
       <span>3. Finish</span>
     </div>
 
@@ -25,7 +25,9 @@
           <p v-if="selectedShipment === 'JNE'">✔</p>
         </div>
 
-        <div class="shipment-option" @click="setShipment('Personal Courier', 29000)">
+        <div
+          class="shipment-option"
+          @click="setShipment('Personal Courier', 29000)">
           <p>Personal Courier</p>
           <p>29,000</p>
           <p v-if="selectedShipment === 'Personal Courier'">✔</p>
@@ -60,7 +62,9 @@
       <p>Dropshipping Fee: 5,900</p>
       <p>{{ selectedShipment }} shipment: {{ shipmentCost }}</p>
       <p>Total: {{ totalAmount }}</p>
-      <button>Pay with {{ selectedPayment }}</button>
+      <router-link :to="{ name: 'Summary' }">
+        <button>Pay with {{ selectedPayment }}</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -71,47 +75,57 @@ export default {
     return {
       selectedShipment: null, // Initialized to null, so no shipment is selected by default
       shipmentCost: 0,
-      selectedPayment: 'e-Wallet',
+      selectedPayment: "e-Wallet",
       shipmentOptions: [
         // Shipping options configuration
-        { name: 'GO-SEND', cost: 15000, deliveryEstimate: 'today by GO-SEND' },
-        { name: 'JNE', cost: 9000, deliveryEstimate: '2 days by JNE' },
-        { name: 'Personal Courier', cost: 29000, deliveryEstimate: '1 day by Personal Courier' }
+        { name: "GO-SEND", cost: 15000, deliveryEstimate: "today by GO-SEND" },
+        { name: "JNE", cost: 9000, deliveryEstimate: "2 days by JNE" },
+        {
+          name: "Personal Courier",
+          cost: 29000,
+          deliveryEstimate: "1 day by Personal Courier",
+        },
       ],
       paymentOptions: [
         // Payment options configuration
-        { name: 'e-Wallet', buttonText: 'Pay with e-Wallet' },
-        { name: 'Bank Transfer', buttonText: 'Pay via Bank Transfer' },
-        { name: 'Virtual Account', buttonText: 'Pay using Virtual Account' }
-      ]
-    }
+        { name: "e-Wallet", buttonText: "Pay with e-Wallet" },
+        { name: "Bank Transfer", buttonText: "Pay via Bank Transfer" },
+        { name: "Virtual Account", buttonText: "Pay using Virtual Account" },
+      ],
+    };
   },
 
   computed: {
     // Extracted from configuration
     deliveryEstimation() {
-      let option = this.shipmentOptions.find((o) => o.name === this.selectedShipment)
-      return option ? option.deliveryEstimate : 'Please select a shipment method'
+      let option = this.shipmentOptions.find(
+        (o) => o.name === this.selectedShipment
+      );
+      return option
+        ? option.deliveryEstimate
+        : "Please select a shipment method";
     },
     paymentButtonText() {
-      let option = this.paymentOptions.find((o) => o.name === this.selectedPayment)
-      return option ? option.buttonText : 'Select a payment method'
+      let option = this.paymentOptions.find(
+        (o) => o.name === this.selectedPayment
+      );
+      return option ? option.buttonText : "Select a payment method";
     },
     totalAmount() {
-      return 500000 + 5900 + this.shipmentCost
-    }
+      return 500000 + 5900 + this.shipmentCost;
+    },
   },
 
   methods: {
     setShipment(method, cost) {
-      this.selectedShipment = method
-      this.shipmentCost = cost || 0
+      this.selectedShipment = method;
+      this.shipmentCost = cost || 0;
     },
     setPayment(method) {
-      this.selectedPayment = method
-    }
-  }
-}
+      this.selectedPayment = method;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -188,5 +202,17 @@ button {
 
 button:hover {
   background-color: #e88600;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.progress-steps .active {
+  color: black;
 }
 </style>

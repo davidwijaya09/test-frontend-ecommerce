@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Delivery from '../views/DeliveryDetailsPage.vue'
 import Payment from '../views/PaymentPage.vue'
+import Summary from '../views/Summary.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'root',
+      component: Delivery
+    },
     {
       path: '/delivery',
       name: 'delivery',
@@ -14,7 +20,12 @@ const router = createRouter({
       path: '/payment',
       name: 'payment',
       component: Payment
-    }
+    },
+    // {
+    //   path: '/summary',
+    //   name: 'Summary',
+    //   component: Summary
+    // }
     // {
     //   path: '/about',
     //   name: 'about',
