@@ -7,7 +7,7 @@
       <span>3. Finish</span>
     </div>
 
-    <button><RouterLink :to="'/payment'">Back to delivery</RouterLink></button>
+    <button><RouterLink :to="'/'">Back to delivery</RouterLink></button>
 
     <!-- Shipment section -->
     <div class="section">
@@ -62,9 +62,7 @@
       <p>Dropshipping Fee: 5,900</p>
       <p>{{ selectedShipment }} shipment: {{ shipmentCost }}</p>
       <p>Total: {{ totalAmount }}</p>
-      <router-link :to="{ name: 'Summary' }">
-        <button>Pay with {{ selectedPayment }}</button>
-      </router-link>
+      <button @click="navigateToSummary">Pay with {{ selectedPayment }}</button>
     </div>
   </div>
 </template>
@@ -123,6 +121,9 @@ export default {
     },
     setPayment(method) {
       this.selectedPayment = method;
+    },
+    navigateToSummary() {
+      this.$router.push("/summaryPage");
     },
   },
 };
@@ -202,17 +203,5 @@ button {
 
 button:hover {
   background-color: #e88600;
-}
-
-.progress-steps {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.progress-steps .active {
-  color: black;
 }
 </style>

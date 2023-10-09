@@ -54,4 +54,7 @@ npm run test:e2e
 
 ```sh
 npm run lint
+
+Version of NPM
+8.19.4
 ```
